@@ -81,3 +81,12 @@ lightning-button {
 .slds-listbox__item.slds-is-selected {
     background-color: #f3f2f2;
 }
+
+.sections-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem; /* Optional: adds space between sections */
+}
+.section-container {
+    flex: 1; /* Optional: makes each section take equal width */
+}

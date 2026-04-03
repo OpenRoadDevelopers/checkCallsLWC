@@ -1,74 +1,75 @@
 <template>
     <lightning-card title="Check Call Input" icon-name="standard:scan_card">
         <div class="slds-p-around_medium">
-            <div class="section-container">
-                <div class="slds-text-heading_small">Location</div>
-                
-                <div class="slds-is-relative">
+            <div class="sections-row">
+                <div class="section-container">
+                    <div class="slds-text-heading_small">Location</div>
+                    
+                    <div class="slds-is-relative">
+                        <lightning-input 
+                            type="text"
+                            label="Location: "
+                            value={location}
+                            placeholder="Dallas, OR"
+                            onchange={handleLocationChange}
+                            onkeydown={handleLocationKeyDown}
+                            onblur={handleBlur}
+                            autocomplete="off"
+                        >
+                        </lightning-input>
+                        <template if:true={locationPredictions.length}>
+                            <div class="custom-dropdown">
+                                <ul class="slds-listbox slds-listbox_vertical">
+                                    <template for:each={locationPredictions} for:item="p">
+                                        <li key={p.place_id} 
+                                            class="slds-listbox__item" 
+                                            onmousedown={handleSelectLocation} 
+                                            data-full-text={p.full_text}
+                                            data-place-id={p.place_id}>
+                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain">
+                                                <span class="slds-media__body">{p.full_text}</span>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </div>
+                    
+                </div>
+
+                <div class="section-container">
+                    <div class="slds-text-heading_small">Delivery Status</div>
                     <lightning-input 
                         type="text"
-                        label="Location: "
-                        value={location}
-                        placeholder="Dallas, OR"
-                        onchange={handleLocationChange}
-                        onkeydown={handleLocationKeyDown}
-                        onblur={handleBlur}
-                        autocomplete="off"
-                    >
+                        label="ETA:"
+                        value={ETA}
+                        placeholder="3 hours til delivery"
+                        onchange={handleETAChange}>
                     </lightning-input>
-                    <template if:true={locationPredictions.length}>
-                        <div class="custom-dropdown">
-                            <ul class="slds-listbox slds-listbox_vertical">
-                                <template for:each={locationPredictions} for:item="p">
-                                    <li key={p.place_id} 
-                                        class="slds-listbox__item" 
-                                        onmousedown={handleSelectLocation} 
-                                        data-full-text={p.full_text}
-                                        data-place-id={p.place_id}>
-                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain">
-                                            <span class="slds-media__body">{p.full_text}</span>
-                                        </div>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                    </template>
+                    <lightning-combobox
+                        name="progress"
+                        label="Status"
+                        value={status}
+                        placeholder="Select Progress"
+                        options={statusOptions}
+                        onchange={handleStatusChange} >
+                    </lightning-combobox>
+
                 </div>
+
                 
+                <div class="section-container">
+                    <div class="slds-text-heading_small">Comment</div>
+                    <lightning-input 
+                        type="text"
+                        label="Comment"
+                        value={comment}
+                        placeholder="Enter your comment"
+                        onchange={handleCommentChange}>
+                    </lightning-input>
+                </div>
             </div>
-
-            <div class="section-container">
-                <div class="slds-text-heading_small">Delivery Status</div>
-                <lightning-input 
-                    type="text"
-                    label="ETA:"
-                    value={ETA}
-                    placeholder="3 hours til delivery"
-                    onchange={handleETAChange}>
-                </lightning-input>
-                <lightning-combobox
-                    name="progress"
-                    label="Status"
-                    value={status}
-                    placeholder="Select Progress"
-                    options={statusOptions}
-                    onchange={handleStatusChange} >
-                </lightning-combobox>
-
-            </div>
-
-            
-            <div class="section-container">
-                <div class="slds-text-heading_small">Comment</div>
-                <lightning-input 
-                    type="text"
-                    label="Comment"
-                    value={comment}
-                    placeholder="Enter your comment"
-                    onchange={handleCommentChange}>
-                </lightning-input>
-            </div>
-            
 
             <!-- Bottom Actions -->
             <!-- <div>{city}</div>
@@ -86,6 +87,7 @@
                     <h2>{error}</h2>
                 </div>
             </template>
+            
         </div>
     </lightning-card>
 </template>
