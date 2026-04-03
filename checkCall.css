@@ -1,0 +1,83 @@
+
+lightning-card {
+    --slds-c-card-body-spacing-block-start: 1rem;
+    --slds-c-card-body-spacing-inline: 1.5rem;
+}
+
+/* Section headings */
+.slds-text-heading_small {
+    font-weight: 600;
+    color: #16325c;
+    /* margin-top: 1.5rem; */
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #0176d3;
+    display: block;
+}
+
+
+
+/* Input field spacing */
+lightning-input {
+    display: block;
+    /* margin-bottom: 1rem; */
+    max-width: 25%;
+    min-width: 200px;
+}
+
+lightning-combobox {
+    display: block;
+    /* margin-bottom: 1rem; */
+    max-width: 25%;
+    min-width: 200px;
+}
+
+
+/* Save button positioning */
+lightning-button {
+    margin-top: 1.5rem;
+    display: inline-block;
+}
+
+/* Section containers - you can wrap sections in divs with these classes */
+.section-container {
+    background-color: #fafaf9;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid #dddbda;
+}
+
+/* Bottom actions area */
+.bottom-actions {
+    /* margin-top: 2rem; */
+    /* padding-top: 1rem; */
+    border-top: 1px solid #dddbda;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.custom-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    background: white;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    width: 30%;
+    max-height: 240px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.slds-listbox__item {
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.slds-listbox__item:hover,
+.slds-listbox__item.slds-is-selected {
+    background-color: #f3f2f2;
+}
