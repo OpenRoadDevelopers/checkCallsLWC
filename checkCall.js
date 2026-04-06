@@ -218,7 +218,8 @@ export default class CheckCall extends LightningElement {
             stateCode: this.state,
             ETA: this.ETA,
             status: this.status,
-            comment: this.comment
+            comment: this.comment,
+            trackingType: this.trackingType
         }).then(() => {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -250,8 +251,3 @@ export default class CheckCall extends LightningElement {
 }
 
 
-//trackingUpdateManager.addTrackingUpdate('a0jNr00000397dFIAQ', 'Beaverton', 'OR', '3 hours away', 'On Time', 'Takuns test');
-//SELECT City__c, State__c, Status__c, ETA__c, Comment__c, Load__c FROM Tracking_Update__c
-
-
-//	Location Update, Shipment Event, Issue Event
