@@ -68,6 +68,16 @@
                         placeholder="Enter your comment"
                         onchange={handleCommentChange}>
                     </lightning-input>
+
+                    <lightning-combobox
+                        name="progress"
+                        label="Status"
+                        value={trackingType}
+                        placeholder="Select Progress"
+                        options={trackingTypeOptions}
+                        onchange={handleTrackingTypeChange} ></lightning-combobox>
+
+                    <p>Selected value is: {trackingType}</p>
                 </div>
             </div>
 

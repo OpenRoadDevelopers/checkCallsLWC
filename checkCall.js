@@ -1,6 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 import getPlacePredictions from '@salesforce/apex/AutoCompleteCityState.getPlacePredictions';
 import addTrackingUpdate from '@salesforce/apex/trackingUpdateManager.addTrackingUpdate';
+import getTrackingType from '@salesforce/apex/trackingUpdateManager.getTrackingType';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class CheckCall extends LightningElement {
     @api recordId;
@@ -14,6 +15,8 @@ export default class CheckCall extends LightningElement {
     @track selectedIndex = -1;
     searchTimeout;
     error = '';
+    trackingTypes = [];
+    trackingType = '';
 
     statusOptions = [
         { label: 'On Time', value: 'On Time' },
@@ -23,6 +26,14 @@ export default class CheckCall extends LightningElement {
 
     connectedCallback() {
         this.recordId && console.log('Record ID:', this.recordId);
+        getTrackingType()
+            .then(result => {
+                console.log('Tracking types fetched:', result);
+                this.trackingTypes = result;
+            })
+            .catch(error => {
+                this.error = error;
+            });
     }
     async handleLocationChange(event) {
         console.log('Location change:', event.target.value);
@@ -123,6 +134,10 @@ export default class CheckCall extends LightningElement {
         }, 80);
     }
 
+    handleTrackingTypeChange(event) {
+        this.trackingType = event.target.value;
+    }
+
 
     async fetchPredictions(input) {
         window.clearTimeout(this.searchTimeout);
@@ -184,6 +199,12 @@ export default class CheckCall extends LightningElement {
         return '⚠ Please fill in all required fields';
     }
 
+    get trackingTypeOptions() {
+        return (this.trackingTypes || []).map(type => ({
+            label: type,
+            value: type
+        }));
+    }
 
     handleSave(){
         this.error = '';
@@ -209,9 +230,11 @@ export default class CheckCall extends LightningElement {
             // Clear form after successful save
             this.city = '';
             this.state = '';
+            this.location = '';
             this.ETA = '';
             this.status = '';
             this.comment = '';
+            this.trackingType = '';
         }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -229,3 +252,6 @@ export default class CheckCall extends LightningElement {
 
 //trackingUpdateManager.addTrackingUpdate('a0jNr00000397dFIAQ', 'Beaverton', 'OR', '3 hours away', 'On Time', 'Takuns test');
 //SELECT City__c, State__c, Status__c, ETA__c, Comment__c, Load__c FROM Tracking_Update__c
+
+
+//	Location Update, Shipment Event, Issue Event
