@@ -188,13 +188,14 @@ export default class CheckCall extends LightningElement {
         if (!this.city || !this.state) {
             return '⚠ Please search and select a valid location from the dropdown';
         }
-
-        if (!this.ETA) {
+        else if (!this.ETA) {
             return '⚠ Please fill in the ETA';
-        } else {
-            if (!this.status) {
-                return '⚠ Please select a status';
-            }
+        } 
+        else if (!this.recordId) {
+            return '⚠ Record ID is missing. Please refresh the page and try again. If persists, contact IT support.';
+        }
+        else if (!this.status) {
+            return '⚠ Please select a status';
         }
         return '⚠ Please fill in all required fields';
     }
@@ -208,7 +209,7 @@ export default class CheckCall extends LightningElement {
 
     handleSave(){
         this.error = '';
-        if (!this.city || !this.state || !this.ETA || !this.status) {
+        if (!this.city || !this.state || !this.ETA || !this.status || !this.recordId) {
             this.error = this.validationMessage;
             return;
         }

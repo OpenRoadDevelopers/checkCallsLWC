@@ -5,8 +5,8 @@ public class trackingUpdateManager {
         trackingUpdate.Load__c = loadId;
         trackingUpdate.City__c = city;
         trackingUpdate.State__c = stateCode;
-        trackingUpdate.Status__c = status;
         trackingUpdate.ETA__c = ETA;
+        trackingUpdate.Status__c = status;
         trackingUpdate.Comment__c = comment;
         trackingUpdate.Source__c = 'Manually Entered';
         trackingUpdate.Type__c = trackingType;
@@ -16,6 +16,17 @@ public class trackingUpdateManager {
     public static List<Tracking_Update__c> getTrackingUpdate(Id loadId){
         List<Tracking_Update__c> trackingLog = [SELECT Type__c, Source__c, City__c, State__c, Status__c, ETA__c, Comment__c, Load__c, CreatedDate FROM Tracking_Update__c WHERE Load__c =: loadId ORDER BY CreatedDate];
         return trackingLog;
+    }
+    
+    @AuraEnabled()
+    public static Tracking_Update__c getRecentUpdate(Id loadId){
+        List<Tracking_Update__c> trackingLogs = [SELECT Type__c, Source__c, City__c, State__c, Status__c, ETA__c, Comment__c, Load__c, CreatedDate FROM Tracking_Update__c WHERE Load__c =: loadId ORDER BY CreatedDate DESC LIMIT 1];
+        if (trackingLogs.isEmpty()){
+            return null;
+        }
+        else{
+        	return trackingLogs[0];    
+        }
     }
     
     @AuraEnabled(cacheable = true)
